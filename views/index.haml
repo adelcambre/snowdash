@@ -1,0 +1,28 @@
+!!!
+%html
+  %head
+    %title Snow Dash
+    %script{:src => "/javascript/Chart.min.js"}
+    %script{:src => "//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"}
+  %body
+    %canvas#temp{:width => 640, :height => 480}
+    :javascript
+      $.getJSON("/temp.json", function(data) {
+        var chart = {
+          labels : data.labels,
+          datasets : [
+            {
+              fillColor : "rgba(220,220,220,0.5)",
+              strokeColor : "rgba(220,220,220,1)",
+              pointColor : "rgba(220,220,220,1)",
+              pointStrokeColor : "#fff",
+              data : data.temps
+            }
+          ]
+        };
+        var canvas = $('#temp').get(0).getContext("2d");
+        new Chart(canvas).Line(chart);
+      });
+
+
+
